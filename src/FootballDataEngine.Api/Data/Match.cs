@@ -7,7 +7,9 @@ public partial class Match
 {
     public int MatchId { get; set; }
 
-    public DateTime EventDate { get; set; }
+    public string MatchType { get; set; } = null!;
+
+    public DateTime MatchDateTime { get; set; }
 
     public string Country { get; set; } = null!;
 
@@ -18,6 +20,8 @@ public partial class Match
     public string AwayTeam { get; set; } = null!;
 
     public decimal AverageGoals { get; set; }
+
+    public decimal? MatchTypeSuccessRate { get; set; }
 
     public DateTime DateTimeCreated { get; set; }
 }

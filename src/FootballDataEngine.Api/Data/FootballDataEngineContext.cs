@@ -21,7 +21,7 @@ public partial class FootballDataEngineContext : DbContext
     {
         modelBuilder.Entity<Match>(entity =>
         {
-            entity.HasKey(e => e.MatchId).HasName("PK__Match__4218C817439F1358");
+            entity.HasKey(e => e.MatchId).HasName("PK__Table__4218C8173A01F33B");
 
             entity.ToTable("Match");
 
@@ -36,13 +36,17 @@ public partial class FootballDataEngineContext : DbContext
             entity.Property(e => e.DateTimeCreated)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.EventDate).HasColumnType("datetime");
             entity.Property(e => e.HomeTeam)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.League)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.MatchDateTime).HasColumnType("datetime");
+            entity.Property(e => e.MatchType)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.MatchTypeSuccessRate).HasColumnType("decimal(18, 2)");
         });
 
         OnModelCreatingPartial(modelBuilder);
