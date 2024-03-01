@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FootballDataEngine.Api.Data;
+﻿namespace FootballDataEngine.Api.Data;
 
 public partial class Match
 {
