@@ -4,48 +4,44 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballDataEngine.Api.Data;
 
-public partial class FootballDataEngineContext : DbContext
+public partial class FootballdataengineContext : DbContext
 {
-    public FootballDataEngineContext()
+    public FootballdataengineContext()
     {
     }
 
-    public FootballDataEngineContext(DbContextOptions<FootballDataEngineContext> options)
+    public FootballdataengineContext(DbContextOptions<FootballdataengineContext> options)
         : base(options)
     {
     }
 
     public virtual DbSet<Match> Matches { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseMySQL("Name=ConnectionStrings:FootballDataEngineDbConnection");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Match>(entity =>
         {
-            entity.HasKey(e => e.MatchId).HasName("PK__Match__4218C817FFC92591");
+            entity.HasKey(e => e.MatchId).HasName("PRIMARY");
 
-            entity.ToTable("Match");
+            entity.ToTable("Match", "FootballDataEngine");
 
-            entity.Property(e => e.AverageGoals).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.AwayTeam)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Country)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+            entity.HasIndex(e => e.MatchId, "MatchId_UNIQUE").IsUnique();
+
+            entity.Property(e => e.AverageCorners).HasPrecision(5);
+            entity.Property(e => e.AverageGoals).HasPrecision(5);
+            entity.Property(e => e.AwayTeam).HasMaxLength(100);
+            entity.Property(e => e.Country).HasMaxLength(100);
             entity.Property(e => e.DateTimeCreated)
-                .HasDefaultValueSql("(getdate())")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
-            entity.Property(e => e.HomeTeam)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.League)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+            entity.Property(e => e.HomeTeam).HasMaxLength(100);
+            entity.Property(e => e.League).HasMaxLength(100);
             entity.Property(e => e.MatchDateTime).HasColumnType("datetime");
-            entity.Property(e => e.MatchType)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.MatchTypeSuccessRate).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.MatchType).HasMaxLength(100);
+            entity.Property(e => e.MatchTypeSuccessRate).HasPrecision(5);
         });
 
         OnModelCreatingPartial(modelBuilder);

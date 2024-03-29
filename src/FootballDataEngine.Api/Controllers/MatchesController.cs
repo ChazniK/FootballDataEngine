@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FootballDataEngine.Api.Data;
 using FootballDataEngine.Api.Models.Match;
 using AutoMapper;
+using FootballDataEngine.Api.Data;
+
 
 namespace FootballDataEngine.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatchesController(FootballDataEngineContext context, IMapper mapper, ILogger<MatchesController> logger) : ControllerBase
+    public class MatchesController(FootballdataengineContext context,
+     IMapper mapper, ILogger<MatchesController> logger) : ControllerBase
     {
-        private readonly FootballDataEngineContext _context = context;
+        private readonly FootballdataengineContext _context = context;
         private readonly IMapper _mapper = mapper;
         private readonly ILogger<MatchesController> _logger = logger;
 
@@ -23,7 +25,7 @@ namespace FootballDataEngine.Api.Controllers
                 var matches = await _context.Matches.ToListAsync();
                 var matchesDto = _mapper.Map<IEnumerable<MatchDto>>(matches);
 
-                return Ok(matchesDto);
+                return Ok("matchesDto");
             }
             catch (Exception ex)
             {
@@ -51,7 +53,7 @@ namespace FootballDataEngine.Api.Controllers
 
             var matchDto = _mapper.Map<MatchDto>(match);
 
-            return Ok(match);
+            return Ok("match");
         }
 
         // POST: Matches/Edit/5
@@ -101,7 +103,7 @@ namespace FootballDataEngine.Api.Controllers
             await _context.AddAsync(match);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMatch), new { id = match.MatchId }, match);
+            return CreatedAtAction(nameof(GetMatch), new { id = "match.MatchId" }, "match");
         }
 
         private async Task<bool> MatchExists(int id)

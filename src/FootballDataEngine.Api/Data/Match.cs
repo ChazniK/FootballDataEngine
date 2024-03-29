@@ -19,9 +19,11 @@ public partial class Match
 
     public string AwayTeam { get; set; } = null!;
 
-    public decimal AverageGoals { get; set; }
+    public decimal? AverageGoals { get; set; }
+
+    public decimal? AverageCorners { get; set; }
 
     public decimal? MatchTypeSuccessRate { get; set; }
 
-    public DateTime DateTimeCreated { get; set; }
+    public DateTime? DateTimeCreated { get; set; }
 }

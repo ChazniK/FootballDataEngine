@@ -27,8 +27,9 @@ namespace FootballDataEngine.Api.Models.Match
         [StringLength(100)]
         public string AwayTeam { get; set; } = null!;
 
-        [Required]
-        public decimal AverageGoals { get; set; }
+        public decimal? AverageGoals { get; set; }
+
+        public decimal? AverageCorners { get; set; }
 
         public decimal? MatchTypeSuccessRate { get; set; }
     }

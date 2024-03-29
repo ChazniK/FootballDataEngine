@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("FootballDataEngineDbConnection");
-builder.Services.AddDbContext<FootballDataEngineContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<FootballdataengineContext>(options => options.UseMySQL(connectionString!));
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
