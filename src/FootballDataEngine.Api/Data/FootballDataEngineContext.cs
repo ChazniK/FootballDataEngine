@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace FootballDataEngine.Api.Data;
 
@@ -19,11 +21,10 @@ public partial class FootballDataEngineContext : DbContext
     {
         modelBuilder.Entity<Match>(entity =>
         {
-            entity.HasKey(e => e.MatchId).HasName("PK__Table__4218C8173A01F33B");
+            entity.HasKey(e => e.MatchId).HasName("PK__Match__4218C817FFC92591");
 
             entity.ToTable("Match");
 
-            entity.Property(e => e.MatchId).ValueGeneratedNever();
             entity.Property(e => e.AverageGoals).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.AwayTeam)
                 .HasMaxLength(100)
